@@ -28,4 +28,19 @@ func main() {
 
 	fmt.Println(firstName)
 	fmt.Println(lastName)
+
+
+	// Variable Constant
+	const var1  = "Variable1"
+	const var2  = 2000
+
+	const (
+		var3 = "Variable3"
+		var4 = 9090
+	)
+
+	fmt.Println(var1)
+	fmt.Println(var2)
+	fmt.Println(var3)
+	fmt.Println(var4)
 }
