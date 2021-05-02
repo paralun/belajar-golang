@@ -7,6 +7,11 @@ type Customer struct {
 	Age int
 }
 
+// struct method
+func (customer Customer) getName()  {
+	fmt.Println("Hallooo", customer.Name)
+}
+
 func main() {
 	var cus1 Customer
 	cus1.Name = "Anissa"
@@ -28,4 +33,7 @@ func main() {
 	//harus sama urutannya
 	cus3 := Customer{"Bella", "Karawang", 22}
 	fmt.Println(cus3)
+
+	// manggil struct method
+	cus1.getName()
 }
