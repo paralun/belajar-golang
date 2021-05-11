@@ -25,3 +25,10 @@ $ go get github.com/paralun/golang-basic
 upgrade dependency
 $ go get
 ```
+
+#### Go Testing
+```
+$ go test -v
+$ go test -v ./...
+$ go test -v -run=TestHello (function testing)
+```
