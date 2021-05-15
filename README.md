@@ -31,4 +31,6 @@ $ go get
 $ go test -v
 $ go test -v ./...
 $ go test -v -run=TestHello (function testing)
+$ go test -v -run=NamaFunction/NamaSubTest
+$ go get github.com/stretchr/testify
 ```
