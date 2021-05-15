@@ -33,4 +33,8 @@ $ go test -v ./...
 $ go test -v -run=TestHello (function testing)
 $ go test -v -run=NamaFunction/NamaSubTest
 $ go get github.com/stretchr/testify
+$ go test -v -bench=.
+$ go test -v -bench=../...
+$ go test -v -run=FuncTestTidakAda -bench=.
+$ go test -v -run=FuncTestTidakAda -bench=BenchmarkTest
 ```
