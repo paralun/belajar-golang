@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func TestOpenConnection(t *testing.T)  {
+func TestOpenConnection(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -19,7 +19,7 @@ func TestOpenConnection(t *testing.T)  {
 	}
 }
 
-func TestExecSql(t *testing.T)  {
+func TestExecSql(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -34,7 +34,7 @@ func TestExecSql(t *testing.T)  {
 	fmt.Println("Success Insert")
 }
 
-func TestQuerySql(t *testing.T)  {
+func TestQuerySql(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -58,7 +58,7 @@ func TestQuerySql(t *testing.T)  {
 	}
 }
 
-func TestQueryNoCtx(t *testing.T)  {
+func TestQueryNoCtx(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -81,7 +81,7 @@ func TestQueryNoCtx(t *testing.T)  {
 	}
 }
 
-func TestQueryWithTypeData(t *testing.T)  {
+func TestQueryWithTypeData(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -144,7 +144,7 @@ func TestQueryWithTypeData(t *testing.T)  {
 	}
 }
 
-func TestSqlParameter(t *testing.T)  {
+func TestSqlParameter(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -161,7 +161,7 @@ func TestSqlParameter(t *testing.T)  {
 	fmt.Println("Insert Success")
 }
 
-func TestQueryParameter(t *testing.T)  {
+func TestQueryParameter(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -188,7 +188,7 @@ func TestQueryParameter(t *testing.T)  {
 	}
 }
 
-func TestGetAutoIncrement(t *testing.T)  {
+func TestGetAutoIncrement(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -206,10 +206,10 @@ func TestGetAutoIncrement(t *testing.T)  {
 	if err2 != nil {
 		panic(err2)
 	}
-	fmt.Println("Insert Success -> ID:" , insertId)
+	fmt.Println("Insert Success -> ID:", insertId)
 }
 
-func TestPrepareStatement(t *testing.T)  {
+func TestPrepareStatement(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -235,11 +235,11 @@ func TestPrepareStatement(t *testing.T)  {
 		if err2 != nil {
 			panic(err2)
 		}
-		fmt.Println("Insert Success -> ID:" , insertId)
+		fmt.Println("Insert Success -> ID:", insertId)
 	}
 }
 
-func TestTransaction(t *testing.T)  {
+func TestTransaction(t *testing.T) {
 	db := GetConnectionMysql()
 	defer db.Close()
 
@@ -263,7 +263,7 @@ func TestTransaction(t *testing.T)  {
 		if err2 != nil {
 			panic(err2)
 		}
-		fmt.Println("Insert Success -> ID:" , insertId)
+		fmt.Println("Insert Success -> ID:", insertId)
 	}
 
 	//err3 := tx.Commit()
