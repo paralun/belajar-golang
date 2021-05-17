@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -206,4 +207,68 @@ func TestGetAutoIncrement(t *testing.T)  {
 		panic(err2)
 	}
 	fmt.Println("Insert Success -> ID:" , insertId)
+}
+
+func TestPrepareStatement(t *testing.T)  {
+	db := GetConnectionMysql()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	script := "INSERT INTO user (username, password) VALUES (?, ?)"
+	statement, err := db.PrepareContext(ctx, script)
+	if err != nil {
+		panic(err)
+	}
+	defer statement.Close()
+
+	for i := 0; i < 10; i++ {
+		user := "guest" + strconv.Itoa(i)
+		pass := "passs" + strconv.Itoa(i)
+
+		result, err := statement.ExecContext(ctx, user, pass)
+		if err != nil {
+			panic(err)
+		}
+
+		insertId, err2 := result.LastInsertId()
+		if err2 != nil {
+			panic(err2)
+		}
+		fmt.Println("Insert Success -> ID:" , insertId)
+	}
+}
+
+func TestTransaction(t *testing.T)  {
+	db := GetConnectionMysql()
+	defer db.Close()
+
+	ctx := context.Background()
+	tx, err := db.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	script := "INSERT INTO user (username, password) VALUES (?, ?)"
+	for i := 0; i < 10; i++ {
+		user := "roll" + strconv.Itoa(i)
+		pass := "back" + strconv.Itoa(i)
+
+		result, err := tx.ExecContext(ctx, script, user, pass)
+		if err != nil {
+			panic(err)
+		}
+
+		insertId, err2 := result.LastInsertId()
+		if err2 != nil {
+			panic(err2)
+		}
+		fmt.Println("Insert Success -> ID:" , insertId)
+	}
+
+	//err3 := tx.Commit()
+	err3 := tx.Rollback()
+	if err3 != nil {
+		panic(err3)
+	}
 }
