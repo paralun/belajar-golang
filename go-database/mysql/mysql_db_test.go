@@ -140,6 +140,70 @@ func TestQueryWithTypeData(t *testing.T)  {
 		}
 
 		fmt.Println("CREATED_AT:", cratedAt)
-
 	}
+}
+
+func TestSqlParameter(t *testing.T)  {
+	db := GetConnectionMysql()
+	defer db.Close()
+
+	ctx := context.Background()
+	user := "admin"
+	pass := "pas1234"
+	script := "INSERT INTO user (username, password) VALUES (?, ?)"
+
+	_, err := db.ExecContext(ctx, script, user, pass)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Insert Success")
+}
+
+func TestQueryParameter(t *testing.T)  {
+	db := GetConnectionMysql()
+	defer db.Close()
+
+	ctx := context.Background()
+	user := "admin"
+	pass := "pas1234"
+	script := "SELECT username FROM user WHERE username = ? AND password = ?"
+
+	rows, err := db.QueryContext(ctx, script, user, pass)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	if rows.Next() {
+		var username string
+		err := rows.Scan(&username)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Sukses Login", username)
+	} else {
+		fmt.Println("Gagal Login")
+	}
+}
+
+func TestGetAutoIncrement(t *testing.T)  {
+	db := GetConnectionMysql()
+	defer db.Close()
+
+	ctx := context.Background()
+	user := "guest"
+	pass := "guest123"
+	script := "INSERT INTO user (username, password) VALUES (?, ?)"
+
+	result, err := db.ExecContext(ctx, script, user, pass)
+	if err != nil {
+		panic(err)
+	}
+
+	insertId, err2 := result.LastInsertId()
+	if err2 != nil {
+		panic(err2)
+	}
+	fmt.Println("Insert Success -> ID:" , insertId)
 }
