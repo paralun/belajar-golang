@@ -11,7 +11,7 @@ type customerRepositoryImpl struct {
 	DB *sql.DB
 }
 
-func NewCustomerRepository(db *sql.DB) CustomerRepository  {
+func NewCustomerRepository(db *sql.DB) CustomerRepository {
 	return &customerRepositoryImpl{DB: db}
 }
 
