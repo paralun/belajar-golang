@@ -32,7 +32,7 @@ func SimpleHTMLEmbed(w http.ResponseWriter, r *http.Request)  {
 }
 
 func SimpleDataMap(w http.ResponseWriter, r *http.Request)  {
-	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t := template.Must(template.ParseFiles("./templates/param.gohtml"))
 	t.ExecuteTemplate(w, "param.gohtml", map[string]interface{}{
 		"Title" : "Data Map",
 		"Name" : "Kusmambang",
@@ -50,7 +50,7 @@ type Page struct {
 }
 
 func SimpleDataStruct(w http.ResponseWriter, r *http.Request)  {
-	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t := template.Must(template.ParseFiles("./templates/param.gohtml"))
 	t.ExecuteTemplate(w, "param.gohtml", Page{
 		Title: "Data Struct",
 		Name:  "Paralun",
@@ -59,7 +59,7 @@ func SimpleDataStruct(w http.ResponseWriter, r *http.Request)  {
 }
 
 func SimpleDataIF(w http.ResponseWriter, r *http.Request)  {
-	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t := template.Must(template.ParseFiles("./templates/if.gohtml"))
 	t.ExecuteTemplate(w, "if.gohtml", Page{
 		Title: "Data Struct",
 		Name:  "Paralun",
@@ -68,7 +68,7 @@ func SimpleDataIF(w http.ResponseWriter, r *http.Request)  {
 }
 
 func SimpleDataIF2(w http.ResponseWriter, r *http.Request)  {
-	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t := template.Must(template.ParseFiles("./templates/if.gohtml"))
 	t.ExecuteTemplate(w, "if.gohtml", map[string]interface{}{
 		"Title" : "Data Map",
 		"Name" : "Kusmambang",
@@ -77,12 +77,21 @@ func SimpleDataIF2(w http.ResponseWriter, r *http.Request)  {
 }
 
 func SimpleDataRange(w http.ResponseWriter, r *http.Request)  {
-	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t := template.Must(template.ParseFiles("./templates/range.gohtml"))
 	t.ExecuteTemplate(w, "range.gohtml", map[string]interface{}{
 		"Title" : "Data Map",
 		"Tasks" : []string{
 			"Belajar GO", "Belajar WEB", "Belajar yg lain",
 		},
+	})
+}
+
+func SimpleLayout(w http.ResponseWriter, r *http.Request)  {
+	t := template.Must(template.ParseFiles("./templates/header.gohtml", "./templates/footer.gohtml", "./templates/content.gohtml"))
+	t.ExecuteTemplate(w, "content", Page{
+		Title: "Template Layout",
+		Name:  "Paralun",
+		Address:Address{Street: "Jl Mana Aja"},
 	})
 }
 
@@ -97,6 +106,7 @@ func TestServerTemplate(t *testing.T)  {
 	mux.HandleFunc("/simple-if", SimpleDataIF)
 	mux.HandleFunc("/simple-if2", SimpleDataIF2)
 	mux.HandleFunc("/simple-range", SimpleDataRange)
+	mux.HandleFunc("/simple-layout", SimpleLayout)
 
 	server := http.Server{
 		Addr: "localhost:7000",
