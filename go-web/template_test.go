@@ -58,6 +58,24 @@ func SimpleDataStruct(w http.ResponseWriter, r *http.Request)  {
 	})
 }
 
+func SimpleDataIF(w http.ResponseWriter, r *http.Request)  {
+	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t.ExecuteTemplate(w, "if.gohtml", Page{
+		Title: "Data Struct",
+		Name:  "Paralun",
+		Address:Address{Street: "Jl Mana Aja"},
+	})
+}
+
+func SimpleDataIF2(w http.ResponseWriter, r *http.Request)  {
+	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t.ExecuteTemplate(w, "if.gohtml", map[string]interface{}{
+		"Title" : "Data Map",
+		"Name" : "Kusmambang",
+		"Nilai" : 60,
+	})
+}
+
 func TestServerTemplate(t *testing.T)  {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/simple", SimpleHTML)
@@ -66,6 +84,8 @@ func TestServerTemplate(t *testing.T)  {
 	mux.HandleFunc("/simple-embed", SimpleHTMLEmbed)
 	mux.HandleFunc("/simple-map", SimpleDataMap)
 	mux.HandleFunc("/simple-struct", SimpleDataStruct)
+	mux.HandleFunc("/simple-if", SimpleDataIF)
+	mux.HandleFunc("/simple-if2", SimpleDataIF2)
 
 	server := http.Server{
 		Addr: "localhost:7000",

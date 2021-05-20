@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{.Title}}</title>
+</head>
+<body>
+
+{{if .Name}}
+    <h1>Hello {{.Name}}</h1>
+{{else}}
+    <h1>Hallo</h1>
+{{end}}
+
+<!--
+ eq (==)
+ ne (!=)
+ lt (<)
+ le (<=)
+ gt (>)
+ ge (<=)
+-->
+{{if ge .Nilai 80}}
+    <h1>Nilai Sangat Baik</h1>
+{{else if ge .Nilai 60}}
+    <h1>Nilai Baik</h1>
+{{else if ge .Nilai 40}}
+    <h1>Nilai Cukup</h1>
+{{else}}
+    <h1>Nilai Kurang</h1>
+{{end}}
+
+</body>
+</html>
