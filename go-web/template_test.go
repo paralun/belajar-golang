@@ -76,6 +76,16 @@ func SimpleDataIF2(w http.ResponseWriter, r *http.Request)  {
 	})
 }
 
+func SimpleDataRange(w http.ResponseWriter, r *http.Request)  {
+	t := template.Must(template.ParseGlob("./templates/*.gohtml"))
+	t.ExecuteTemplate(w, "range.gohtml", map[string]interface{}{
+		"Title" : "Data Map",
+		"Tasks" : []string{
+			"Belajar GO", "Belajar WEB", "Belajar yg lain",
+		},
+	})
+}
+
 func TestServerTemplate(t *testing.T)  {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/simple", SimpleHTML)
@@ -86,6 +96,7 @@ func TestServerTemplate(t *testing.T)  {
 	mux.HandleFunc("/simple-struct", SimpleDataStruct)
 	mux.HandleFunc("/simple-if", SimpleDataIF)
 	mux.HandleFunc("/simple-if2", SimpleDataIF2)
+	mux.HandleFunc("/simple-range", SimpleDataRange)
 
 	server := http.Server{
 		Addr: "localhost:7000",
