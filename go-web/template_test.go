@@ -4,6 +4,7 @@ import (
 	"embed"
 	"html/template"
 	"net/http"
+	"strings"
 	"testing"
 )
 
@@ -95,6 +96,21 @@ func SimpleLayout(w http.ResponseWriter, r *http.Request)  {
 	})
 }
 
+func SimpleCustomeFunction(w http.ResponseWriter, r *http.Request)  {
+	t := template.New("FUNCTION")
+	t = t.Funcs(map[string]interface{}{
+		"upper" : func(value string) string {
+			return strings.ToUpper(value)
+		},
+	})
+	templateText := "<html><body>{{upper .Name}}</body></html>"
+	t = template.Must(t.Parse(templateText))
+
+	t.ExecuteTemplate(w, "FUNCTION", map[string] interface{}{
+		"Name" : "menjadi huruf besar",
+	})
+}
+
 func TestServerTemplate(t *testing.T)  {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/simple", SimpleHTML)
@@ -107,6 +123,7 @@ func TestServerTemplate(t *testing.T)  {
 	mux.HandleFunc("/simple-if2", SimpleDataIF2)
 	mux.HandleFunc("/simple-range", SimpleDataRange)
 	mux.HandleFunc("/simple-layout", SimpleLayout)
+	mux.HandleFunc("/simple-func", SimpleCustomeFunction)
 
 	server := http.Server{
 		Addr: "localhost:7000",
