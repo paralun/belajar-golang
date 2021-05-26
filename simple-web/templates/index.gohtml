@@ -39,7 +39,42 @@
 <!-- Add New User Modal End -->
 
 <!-- Edit User Modal Start -->
+<div class="modal fade" tabindex="-1" id="editProductModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/update" method="post" id="add-user-form" class="p-2" novalidate>
+                    <div class="mb-3">
+                        <input type="text" name="productName" id="productName" class="form-control form-control-lg" placeholder="Product Name" required>
+                        <div class="invalid-feedback">Product Name is required!</div>
+                    </div>
 
+                    <div class="mb-3">
+                        <input type="text" name="category" id="category" class="form-control form-control-lg" placeholder="Enter Category" required>
+                        <div class="invalid-feedback">Category is required!</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" name="stock" id="stock" class="form-control form-control-lg" placeholder="Enter Stock" required>
+                        <div class="invalid-feedback">Stock is required!</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" name="price" id="price" class="form-control form-control-lg" placeholder="Enter Price" required>
+                        <div class="invalid-feedback">Price is required!</div>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Edit User Modal End -->
 
 <div class="container">
@@ -80,7 +115,7 @@
                             <td>{{.Stock}}</td>
                             <td>{{.Price}}</td>
                             <td>
-                                <button class="btn btn-sm btn-info">Edit</button>
+                                <button class="btn btn-sm btn-info" id="myBtn">Edit</button>
                                 <button class="btn btn-sm btn-danger">Delete</button>
                             </td>
                         </tr>
