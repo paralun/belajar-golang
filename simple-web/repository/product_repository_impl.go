@@ -16,7 +16,7 @@ func NewProductRepository(db *sql.DB) ProductRepository {
 }
 
 func (repo *productRepositoryImpl) Insert(ctx context.Context, product model.Product) error {
-	script := "INSERT INTO (product_name, category, stock, price) VALUES(?, ?, ?, ?)"
+	script := "INSERT INTO t_product (product_name, category, stock, price) VALUES(?, ?, ?, ?)"
 	_, err := repo.DB.ExecContext(ctx, script, product.ProductName, product.Category, product.Stock, product.Price)
 	if err != nil {
 		return err
@@ -40,7 +40,7 @@ func (repo *productRepositoryImpl) Deleted(ctx context.Context, product model.Pr
 	return nil
 }
 func (repo *productRepositoryImpl) FindById(ctx context.Context, id int32) (model.Product, error) {
-	script := "SELECT id, product_name, category, stock, price, create_at, updated_at FROM t_product WHERE id = ? LIMIT 1"
+	script := "SELECT id, product_name, category, stock, price, created_at, updated_at FROM t_product WHERE id = ? LIMIT 1"
 	prod := model.Product{}
 	rows, err := repo.DB.QueryContext(ctx, script, id)
 	if err != nil {
@@ -57,7 +57,7 @@ func (repo *productRepositoryImpl) FindById(ctx context.Context, id int32) (mode
 	return prod, nil
 }
 func (repo *productRepositoryImpl) FindAll(ctx context.Context) (model.Products, error) {
-	script := "SELECT id, product_name, category, stock, price, create_at, updated_at FROM t_product"
+	script := "SELECT id, product_name, category, stock, price, created_at, updated_at FROM t_product"
 	products := model.Products{}
 	rows, err := repo.DB.QueryContext(ctx, script)
 	if err != nil {
