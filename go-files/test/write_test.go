@@ -35,6 +35,20 @@ func TestWriteIOUtil(t *testing.T)  {
 	}
 }
 
+func TestWriteAppend(t *testing.T)  {
+	file, err := os.OpenFile("D:/Data/data2.txt", os.O_APPEND|os.O_WRONLY, 0777)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file.Close()
+
+	_, err = file.WriteString("\nData akan di Append")
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func TestWriteBuffer(t *testing.T)  {
 	file, err := os.Create("./data1.txt")
 	if err != nil {
