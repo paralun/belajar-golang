@@ -32,3 +32,16 @@ func TestCD(t *testing.T)  {
 
 	fmt.Println(dir)
 }
+
+func TestIsDir(t *testing.T)  {
+	info, err := os.Stat("D:/Data")
+	if os.IsNotExist(err) {
+		log.Fatal("File does not exist.")
+	}
+
+	if info.IsDir() {
+		fmt.Println("directory")
+	} else {
+		fmt.Println("file")
+	}
+}
